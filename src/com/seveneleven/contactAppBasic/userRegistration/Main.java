@@ -5,14 +5,48 @@
 
 package com.seveneleven.contactAppBasic.userRegistration;
 
+import java.util.Scanner;
+
 public class Main {
 
 	public static void main(String[] args) {
 		
-		//Creating an object for userService and calling the register method for registration
-		UserService userservice =  new UserService();
-		userservice.register("mithra123@gmail.com","Password@123", "Mithra");
-
+		Scanner sc=new Scanner(System.in);
+		System.out.println("User Registration:");
+		System.out.print("Enter Name: ");
+		String name=sc.nextLine();
+		System.out.print("Enter Email: ");
+		String email=sc.nextLine();
+		System.out.print("Enter Password: ");
+		String password=sc.nextLine();
+		String hashedPassword = PasswordHashing.hashPassword(password);
+		User registeredUser = new User(name,email,hashedPassword);
+		System.out.println("Registartion Successful");
+		System.out.println("Name: "+registeredUser.getName());
+		System.out.println("Email: "+registeredUser.getEmail());
+		System.out.println("\nUser Login");
+		System.out.print("Enter Email: ");
+		String loginEmail=sc.nextLine();
+		System.out.println("Enter Password: ");
+		String loginPassword=sc.nextLine();
+		Authentication auth = new BasicAuth();
+		try {
+			boolean isLoggedIn=auth.login(registeredUser, loginEmail, loginPassword);
+			if(isLoggedIn) {
+				System.out.println("Login Successful");
+				Session session=new Session();
+				session.startSession(registeredUser);
+				System.out.println("Welcome "+session.getLoggedInUser().getName());
+				session.endSession();
+			}
+			else {
+				System.out.println("Invalid Email or Password");
+			}
+		}
+		catch(IllegalArgumentException e) {
+			System.out.println("Error: "+e.getMessage());
+		}
 	}
 
 }
+
