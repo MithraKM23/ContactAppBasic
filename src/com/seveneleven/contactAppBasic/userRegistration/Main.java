@@ -1,6 +1,6 @@
 /*
  * @author developer
- * @version 1
+ * @version 2
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
@@ -11,6 +11,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		//Getting inputs from the user for registration
 		Scanner sc=new Scanner(System.in);
 		System.out.println("User Registration:");
 		System.out.print("Enter Name: ");
@@ -19,6 +20,8 @@ public class Main {
 		String email=sc.nextLine();
 		System.out.print("Enter Password: ");
 		String password=sc.nextLine();
+		
+		//Storing the hashed password for authentication
 		String hashedPassword = PasswordHashing.hashPassword(password);
 		User registeredUser = new User(name,email,hashedPassword);
 		System.out.println("Registartion Successful");
@@ -30,6 +33,8 @@ public class Main {
 		System.out.println("Enter Password: ");
 		String loginPassword=sc.nextLine();
 		Authentication auth = new BasicAuth();
+		
+		//If login successful printing the welcome message
 		try {
 			boolean isLoggedIn=auth.login(registeredUser, loginEmail, loginPassword);
 			if(isLoggedIn) {
