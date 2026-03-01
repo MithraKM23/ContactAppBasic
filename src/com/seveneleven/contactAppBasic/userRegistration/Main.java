@@ -1,6 +1,6 @@
 /*
  * @author developer
- * @version 9
+ * @version 10
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
@@ -8,11 +8,32 @@ import com.seveneleven.contactAppBasic.contactManagement.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    //Method to filter contact by date
+	public static void filterbyDate(List<Contact> contactlist,LocalDate date) {
+		for(Contact c:contactlist) {
+			if(c.getCreatedAt().toLocalDate().equals(date)) {
+				System.out.println(c);
+			}
+		}
+	}
+	
+	//Method to sort by name
+	public static void sortbyName(List<Contact> contactlist) {
+		Collections.sort(contactlist,new Comparator<Contact>() {
+			public int compare(Contact c1,Contact c2) {
+				return c1.getName().compareToIgnoreCase(c2.getName());
+			}
+		});
+		System.out.println("Sorted Successfully");
+	}
 	
 	//Search contact by name
 	public static void searchbyName(List<Contact> contactlist,String name) {
@@ -272,6 +293,7 @@ public class Main {
 		System.out.println("5. Bulk deletion");
 		System.out.println("6. Export Bulk Contacts");
 		System.out.println("7. Search contact");
+		System.out.println("8. Filter/Sort contacts");
 		System.out.println("Choose type");
 		int type1=sc.nextInt();
 		sc.nextLine();
@@ -324,6 +346,24 @@ public class Main {
 					System.out.println("Enter phone Number: ");
 					String phone=sc.nextLine();
 					searchbyPhone(contactlist,phone);
+				}
+				break;
+			case 8:
+				System.out.println("1.Filter by Date Added");
+				System.out.println("2. Sort by Name");
+				int filterchoice=sc.nextInt();
+				sc.nextLine();
+				if(filterchoice==1) {
+					System.out.println("Enter date(yyyy-mm-dd): ");
+					String dateinput=sc.nextLine();
+					LocalDate date = LocalDate.parse(dateinput);
+					filterbyDate(contactlist,date);
+				}
+				else if(filterchoice==2) {
+					sortbyName(contactlist);
+					for(Contact c:contactlist) {
+						System.out.println(c);
+					}
 				}
 				break;
 			default:
