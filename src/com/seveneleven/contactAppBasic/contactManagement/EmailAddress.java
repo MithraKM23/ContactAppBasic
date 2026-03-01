@@ -1,6 +1,6 @@
 /*
  * @author Developer
- * @version 5
+ * @version 6
  */
 
 package com.seveneleven.contactAppBasic.contactManagement;
@@ -17,6 +17,9 @@ public class EmailAddress {
 			throw new IllegalArgumentException("Invalid email");
 		}
 		this.email=email;
+	}
+	public String getemail() {
+		return email;
 	}
 	@Override
 	public String toString() {

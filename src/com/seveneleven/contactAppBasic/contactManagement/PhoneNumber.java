@@ -1,6 +1,6 @@
 /*
  * @author Developer
- * @version 5
+ * @version 6
  */
 
 package com.seveneleven.contactAppBasic.contactManagement;
@@ -13,6 +13,10 @@ public class PhoneNumber {
 			throw new IllegalArgumentException("Phone number must be 10 digits");
 		}
 		this.number=number;
+	}
+	
+	public String getNumber() {
+		return number;
 	}
 	@Override
 	public String toString() {

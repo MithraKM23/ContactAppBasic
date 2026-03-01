@@ -1,6 +1,6 @@
 /*
  * @author Developer
- * @version 5
+ * @version 6
  */
 
 package com.seveneleven.contactAppBasic.contactManagement;
@@ -28,6 +28,7 @@ public class Contact {
 			this.email = new ArrayList<>();
 			this.createdAt = LocalDateTime.now();
 		}
+		
 		public int getId() {
 			return id;
 		}
@@ -67,5 +68,30 @@ public class Contact {
 				emailDetails.append(e.toString()).append("\n");
 			}
 			return "Contact ID: "+id+"\n"+"Name: "+name+"\n"+"Phone Numbers: "+phoneDetails+"Email Address: "+emailDetails+"Created At: "+createdAt;
+		}
+		public Contact(Contact other) {
+			this.id=other.id;
+			this.name=other.name;
+			this.createdAt=other.createdAt;
+			this.phoneNo = new ArrayList<>();
+			for(PhoneNumber p :other.phoneNo) {
+				this.phoneNo.add(new PhoneNumber(p.getNumber()));
+			}
+			this.email=new ArrayList<>();
+			for(EmailAddress e :other.email) {
+				this.email.add(new EmailAddress(e.getemail()));
+			}
+		}
+		public void setName(String name) {
+			if (name==null || name.trim().isEmpty()) {
+				throw new IllegalArgumentException("Name cannot be empty");
+			}
+			this.name=name;
+		}
+		public void clearPhoneNumbers() {
+			phoneNo.clear();
+		}
+		public void clearEmail() {
+			email.clear();
 		}
 }
