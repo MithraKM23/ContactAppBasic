@@ -1,10 +1,11 @@
 /*
  * @author developer
- * @version 10
+ * @version 11
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
 import com.seveneleven.contactAppBasic.contactManagement.*;
+import com.seveneleven.conatctAppBasic.tags.*;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,6 +17,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+	
+	private static TagManager tagManager = new TagManager();
+	
     //Method to filter contact by date
 	public static void filterbyDate(List<Contact> contactlist,LocalDate date) {
 		for(Contact c:contactlist) {
@@ -294,6 +298,7 @@ public class Main {
 		System.out.println("6. Export Bulk Contacts");
 		System.out.println("7. Search contact");
 		System.out.println("8. Filter/Sort contacts");
+		System.out.println("9. Create and Manage tags");
 		System.out.println("Choose type");
 		int type1=sc.nextInt();
 		sc.nextLine();
@@ -364,6 +369,20 @@ public class Main {
 					for(Contact c:contactlist) {
 						System.out.println(c);
 					}
+				}
+				break;
+			case 9:
+				System.out.println("1.Create Tag");
+				System.out.println("2. View All Tags");
+				int tagchoice=sc.nextInt();
+				sc.nextLine();
+				if(tagchoice==1) {
+					System.out.println("Enter Tag Name");
+					String tagname=sc.nextLine();
+					tagManager.createTag(tagname);
+				}
+				else if(tagchoice==2) {
+					tagManager.viewAllTags();
 				}
 				break;
 			default:
