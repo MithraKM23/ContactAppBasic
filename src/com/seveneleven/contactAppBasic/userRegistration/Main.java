@@ -1,6 +1,6 @@
 /*
  * @author developer
- * @version 11
+ * @version 12
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
@@ -299,6 +299,7 @@ public class Main {
 		System.out.println("7. Search contact");
 		System.out.println("8. Filter/Sort contacts");
 		System.out.println("9. Create and Manage tags");
+		System.out.println("10. Apply Tag to Contact");
 		System.out.println("Choose type");
 		int type1=sc.nextInt();
 		sc.nextLine();
@@ -383,6 +384,32 @@ public class Main {
 				}
 				else if(tagchoice==2) {
 					tagManager.viewAllTags();
+				}
+				break;
+			case 10:
+				System.out.println("Enter Contact ID: ");
+				int contactid=sc.nextInt();
+				sc.nextLine();
+				Contact foundContact1 = null;
+				for(Contact c:contactlist) {
+					if(c.getId()==contactid) {
+						foundContact1=c;
+						break;
+					}
+				}
+				if(foundContact1 == null) {
+					System.out.println("Contact not found");
+					break;
+				}
+				System.out.println("Enter Tag Name: ");
+				String tagName=sc.nextLine();
+				Tag tag=tagManager.getTagByName(tagName);
+				if(tag==null) {
+					System.out.println("Tag does not exist. Create it first");
+				}
+				else {
+					foundContact1.addTag(tag);
+					System.out.println("Tag applied successfully");
 				}
 				break;
 			default:

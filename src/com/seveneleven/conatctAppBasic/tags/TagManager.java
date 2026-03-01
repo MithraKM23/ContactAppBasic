@@ -44,6 +44,7 @@ public class TagManager {
 		return null;
 	}
 	
+	
 	public Set<Tag> getAllTags(){
 		return allTags;
 	}
