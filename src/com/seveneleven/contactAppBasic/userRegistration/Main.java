@@ -1,6 +1,6 @@
 /*
  * @author developer
- * @version 8
+ * @version 9
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
@@ -13,6 +13,26 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+	
+	//Search contact by name
+	public static void searchbyName(List<Contact> contactlist,String name) {
+		for(Contact c:contactlist) {
+			if(c.getName().equalsIgnoreCase(name)) {
+				System.out.println(c);
+			}
+		}
+	}
+	
+	//Method to search contact by phone number
+	public static void searchbyPhone(List<Contact> contactlist,String phone) {
+		for(Contact c : contactlist) {
+			for(PhoneNumber p : c.getPhoneNo()) {
+				if(p.getNumber().contains(phone)) {
+					System.out.println(c);
+				}
+			}
+		}
+	}
 	//method to export contact
 	public static void exportContact(List<Contact> contactlist) {
 		try {
@@ -244,13 +264,14 @@ public class Main {
 			return;
 		}
 		
-		System.out.println("\nEDIT CONTACT");
+		System.out.println("\nMENU");
 		System.out.println("1. Edit Name");
 		System.out.println("2. Edit phone Number");
 		System.out.println("3. Edit Email");
 		System.out.println("4. Delete Contact");
 		System.out.println("5. Bulk deletion");
 		System.out.println("6. Export Bulk Contacts");
+		System.out.println("7. Search contact");
 		System.out.println("Choose type");
 		int type1=sc.nextInt();
 		sc.nextLine();
@@ -287,6 +308,23 @@ public class Main {
 				break;
 			case 6:
 				exportContact(contactlist);
+				break;
+			case 7:
+				System.out.println("Search by:");
+				System.out.println("1. Name");
+				System.out.println("2. Phone Number");
+				int searchchoice=sc.nextInt();
+				sc.nextLine();
+				if(searchchoice==1) {
+					System.out.println("Enter name to search: ");
+					String nametosearch=sc.nextLine();
+					searchbyName(contactlist,nametosearch);
+				}
+				else if(searchchoice==2) {
+					System.out.println("Enter phone Number: ");
+					String phone=sc.nextLine();
+					searchbyPhone(contactlist,phone);
+				}
 				break;
 			default:
 				break;
