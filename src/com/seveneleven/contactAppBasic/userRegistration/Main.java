@@ -1,6 +1,6 @@
 /*
  * @author developer
- * @version 6
+ * @version 7
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
@@ -11,6 +11,31 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+	
+	//Method to delete contact
+	public static void deleteContact(List<Contact> contactlist,int id,Scanner sc) {
+		Contact toDelete=null;
+		for(Contact c:contactlist) {
+			if(c.getId()==id) {
+				toDelete=c;
+				break;
+			}
+		}
+		if(toDelete==null) {
+			System.out.println("Contact not found");
+			return;
+		}
+		System.out.println("Are you sure you want to delete this contact?(yes/no):");
+		System.out.println(toDelete);
+		String choice1=sc.nextLine();
+		if(choice1.equalsIgnoreCase("yes")) {
+			contactlist.remove(toDelete);
+			System.out.println("Contact deleted successfully");
+		}
+		else {
+			System.out.println("Deletion cancelled");
+		}
+	}
 
 	public static void main(String[] args) {
 
@@ -178,10 +203,12 @@ public class Main {
 			System.out.println("Contact not found");
 			return;
 		}
+		
 		System.out.println("\nEDIT CONTACT");
 		System.out.println("1. Edit Name");
 		System.out.println("2. Edit phone Number");
 		System.out.println("3. Edit Email");
+		System.out.println("4. Delete Contact");
 		System.out.println("Choose type");
 		int type1=sc.nextInt();
 		sc.nextLine();
@@ -207,6 +234,11 @@ public class Main {
 				String newemail=sc.nextLine();
 				foundContact.addEmailAddress(new EmailAddress(newemail));
 				System.out.println("Contact updated successfully");
+				break;
+			case 4:
+				System.out.println("Enter conntact id to delete: ");
+				int deleteid=Integer.parseInt(sc.nextLine());
+				deleteContact(contactlist,deleteid,sc);
 				break;
 			default:
 				break;
