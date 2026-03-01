@@ -1,6 +1,6 @@
 /*
  * @author Developer
- * @version 4
+ * @version 5
  */
 
 package com.seveneleven.contactAppBasic.contactManagement;
@@ -14,7 +14,8 @@ public class PhoneNumber {
 		}
 		this.number=number;
 	}
-	public String getNumber() {
-		return number;
+	@Override
+	public String toString() {
+		return "Phone: "+number;
 	}
 }

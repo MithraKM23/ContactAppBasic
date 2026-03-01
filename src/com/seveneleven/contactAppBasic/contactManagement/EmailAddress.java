@@ -1,6 +1,6 @@
 /*
  * @author Developer
- * @version 4
+ * @version 5
  */
 
 package com.seveneleven.contactAppBasic.contactManagement;
@@ -18,8 +18,9 @@ public class EmailAddress {
 		}
 		this.email=email;
 	}
-	public String getEmailAddress() {
-		return email;
+	@Override
+	public String toString() {
+		return "Email: "+ email;
 	}
 
 }

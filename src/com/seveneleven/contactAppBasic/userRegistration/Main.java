@@ -1,10 +1,13 @@
 /*
  * @author developer
- * @version 4
+ * @version 5
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
 import com.seveneleven.contactAppBasic.contactManagement.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -138,6 +141,27 @@ public class Main {
 				}
 				catch(IllegalArgumentException e) {
 					System.out.println("Error: "+e.getMessage());
+				}
+				List<Contact> contactlist = new ArrayList<>();
+				
+				//Adding the contact details in the list
+				contactlist.add(contact);
+				System.out.println("Enter contact ID to View: ");
+				int searchid=Integer.parseInt(sc.nextLine());
+				Contact findContact = null;
+				
+				//If the entered search id matches the contact id in the list then it will return the person's contact details in that contact id
+				for(Contact c : contactlist) {
+					if(c.getId() == searchid) {
+						findContact=c;
+						break;
+					}
+				}
+				if(findContact != null) {
+					System.out.println(findContact);
+				}
+				else {
+					System.out.println("Contact not found");
 				}
 		
 	}
