@@ -1,16 +1,56 @@
 /*
  * @author developer
- * @version 7
+ * @version 8
  */
 
 package com.seveneleven.contactAppBasic.userRegistration;
 import com.seveneleven.contactAppBasic.contactManagement.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+	//method to export contact
+	public static void exportContact(List<Contact> contactlist) {
+		try {
+			FileWriter writer = new FileWriter("contacts.txt");
+			for(Contact c : contactlist) {
+				writer.write(c.toString());
+			}
+			writer.close();
+			System.out.println("Contacts exported successfully");
+		}
+		catch(IOException e) {
+			System.out.println("Error while Exporting");
+		}
+	}
+	
+	//Method for bulk deletion
+	public static void bulkdelete(List<Contact> contactlist,Scanner sc) {
+		System.out.println("Enter contact ids to delete (comma separated): ");
+		String input=sc.nextLine();
+		String[] array=input.split(",");
+		List<Integer> ids=new ArrayList<>();
+		for(String id1:array) {
+			try {
+				ids.add(Integer.parseInt(id1.trim()));
+			}
+			catch(NumberFormatException e) {
+				System.out.println("Invalid ID: "+id1);
+			}
+		}
+		List<Contact> toRemove = new ArrayList<>();
+		for(Contact c: contactlist) {
+			if(ids.contains(c.getId())) {
+				toRemove.add(c);
+			}
+		}
+		contactlist.removeAll(toRemove);
+		System.out.println("Bulk delete completed");
+	}
 	
 	//Method to delete contact
 	public static void deleteContact(List<Contact> contactlist,int id,Scanner sc) {
@@ -209,6 +249,8 @@ public class Main {
 		System.out.println("2. Edit phone Number");
 		System.out.println("3. Edit Email");
 		System.out.println("4. Delete Contact");
+		System.out.println("5. Bulk deletion");
+		System.out.println("6. Export Bulk Contacts");
 		System.out.println("Choose type");
 		int type1=sc.nextInt();
 		sc.nextLine();
@@ -239,6 +281,12 @@ public class Main {
 				System.out.println("Enter conntact id to delete: ");
 				int deleteid=Integer.parseInt(sc.nextLine());
 				deleteContact(contactlist,deleteid,sc);
+				break;
+			case 5:
+				bulkdelete(contactlist,sc);
+				break;
+			case 6:
+				exportContact(contactlist);
 				break;
 			default:
 				break;
