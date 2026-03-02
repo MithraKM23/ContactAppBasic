@@ -1,0 +1,1 @@
+A console-based Contact Management Application built using Core Java following clean Architecture principles and Object-oriented design This project demonstrates structured package design, separation of concerns and practical use of java Collections Framework
